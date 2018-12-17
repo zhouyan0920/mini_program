@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑活动</title>
+    <link rel="stylesheet" href="__STATIC__/lib/layui/css/layui.css">
+</head>
+<body>
+<form class="layui-form" enctype="multipart/form-data" id="form">
+ <table class="layui-table">
+    <colgroup>
+        <col width="100">
+        <col width="300">
+    </colgroup>
+    <thead class="text-center">
+    <!-- <tr>
+        <th colspan="2">游戏活动</th>
+    </tr> -->
+    </thead>
+    <tbody id="demo">
+    <tr>
+        <td>ID</td>
+        <td>{$gameinfo['id']}</td>
+    </tr>
+    <tr>
+        <td>名称</td>
+        <td><input type="text" name="name" value="{$gameinfo['name']}" id="name" class="layui-input" lay-verify="content"></td>
+    </tr>
+    <tr>
+        <td>规则</td>
+        <td>
+            <textarea name="description" cols="70" rows="5" style="resize:none">{$gameinfo['description']}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>简述</td>
+        <td>
+            <textarea name="remark" cols="70" rows="5" style="resize:none">{$gameinfo['remark']}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>类型</td>
+        <td>
+            <input type="text" name="type" value="{$gameinfo['type']}" class="layui-input">
+        </td>
+    </tr>
+    <tr>
+        <td>所需积分</td>
+        <td>
+            <input type="number" name="integral" value="{$gameinfo['integral']}" class="layui-input">
+        </td>
+    </tr>
+    <tr>
+        <td>游戏次数</td>
+        <td>
+            <input type="number" name="user_times" value="{$gameinfo['user_times']}" class="layui-input">
+        </td>
+    </tr>
+    <tr>
+        <td>分享游戏次数</td>
+        <td><input type="number" name="share_times" value="{$gameinfo['share_times']}" class="layui-input" lay-verify="price"></td>
+    </tr>
+    <tr>
+        <td>是否需要关注</td>
+        <td>
+            {if ($gameinfo['need_subscribe'] == 1)}
+            <input type="radio" name="need_subscribe" value="1" class="layui-input" checked>是
+            <input type="radio" name="need_subscribe" value="0" class="layui-input">否
+            {else/}
+            <input type="radio" name="need_subscribe" value="1" class="layui-input">是
+            <input type="radio" name="need_subscribe" value="0" class="layui-input" checked>否
+            {/if}
+        </td>
+    </tr>
+    <tr>
+        <td>是否需要绑定手机号</td>
+        <td>
+            {if ($gameinfo['need_subscribe'] == 1)}
+            <input type="radio" name="need_bind" value="1" class="layui-input" checked>是
+            <input type="radio" name="need_bind" value="0" class="layui-input">否
+            {else/}
+            <input type="radio" name="need_bind" value="1" class="layui-input">是
+            <input type="radio" name="need_bind" value="0" class="layui-input" checked>否
+            {/if}
+        </td>
+    </tr>
+    <tr>
+        <td>分享图片</td>
+        <td>
+            <input type="file" name="share_image">
+        </td>
+    </tr>
+    <tr>
+        <td>分享标题</td>
+        <td>
+            <input type="text" name="share_title" value="{$gameinfo['share_title']}" class="layui-input">
+        </td>
+    </tr>
+    <tr>
+        <td>分享描述</td>
+        <td>
+            <textarea name="share_desc" cols="70" rows="5" style="resize:none">{$gameinfo['share_desc']}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>模板</td>
+        <td>
+            <select class="layui-input" lay-ignore id="select" name="theme_id">
+                {foreach $themes as $v}
+                    {if ($v['id'] == $gameinfo['theme_id'])}
+                    <option value="{$v['id']}" selected>{$v['id']}</option>
+                    {else/}
+                    <option value="{$v['id']}">{$v['id']}</option>
+                    {/if}
+                {/foreach}
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>抽奖活动</td>
+        <td>
+            <select class="layui-input" lay-ignore id="select" name="draw_id">
+                {foreach $draws as $v}
+                    {if ($v['id'] == $gameinfo['draw_id'])}
+                    <option value="{$v['id']}" selected>{$v['id']}</option>
+                    {else/}
+                    <option value="{$v['id']}">{$v['id']}</option>
+                    {/if}
+                {/foreach}
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>开始时间</td>
+        <td>
+            <input type="text" name="eff_at" value="{$gameinfo['eff_at']}" class="layui-input" id='test1'>
+        </td>
+    </tr>
+    <tr>
+        <td>结束时间</td>
+        <td>
+            <input type="text" name="exp_at" value="{$gameinfo['exp_at']}" class="layui-input" id="test2">
+        </td>
+    </tr>
+    <tr>
+        <td>配置参数</td>
+        <td>
+            <input type="text" name="ext_value" value="{$gameinfo['ext_value']}" class="layui-input">
+        </td>
+    </tr>
+    <tr class="text-center">
+        <td colspan="2">
+            <button class="layui-btn"  lay-submit lay-filter="formDemo" id="upChange">提交修改</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</form>
+
+<script src="__JS__/jquery-3.3.1.js"></script>
+<script src="__STATIC__/lib/layui/layui.js"></script>
+<script type="text/javascript" src="__JS__/layuiFormCheck.js"></script>
+<script type="text/javascript">
+    let gameEditUrl="{:url('gameedit')}";   //游戏编辑url
+    let changeUrl="{:url('changeGameInfo')}";   //修改游戏活动url
+    //layui开始时间和结束时间
+    layui.use('laydate', function(){
+      var laydate = layui.laydate;
+      //执行一个laydate实例
+      laydate.render({
+        elem: '#test1', //指定元素
+        type:"datetime"
+      });
+      laydate.render({
+        elem: '#test2', //指定元素
+        type:"datetime"
+      });
+    });
+</script>
+<script src="__JS__/gameinfo.js"></script>
+</body>
+</html>

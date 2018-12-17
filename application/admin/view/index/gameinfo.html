@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>活动配置</title>
+	<link rel="stylesheet" href="__CSS__/font.css">
+    <link rel="stylesheet" href="__CSS__/xadmin.css">
+</head>
+<body>
+<table class="layui-table">
+    <colgroup>
+        <col width="100">
+        <col width="100">
+        <col width="400">
+        <col width="100">
+        <col width="250">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>名称</th>
+        <th>规则</th>
+        <th>类型</th>
+        <th>时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="demo">
+    <tr>
+        <td>{$gameinfo["id"]}</td>
+        <td>{$gameinfo["name"]}</td>
+        <td>{$gameinfo["description"]}</td>
+        <td>{$gameinfo["type"]}</td>
+        <td>
+        	{$gameinfo["eff_at"]}
+        	<br>
+        	{$gameinfo["exp_at"]}
+        </td>
+        <td>
+        	<button class="layui-btn layui-btn-sm" onclick="editGame({$gameinfo["id"]})">修改</button>
+        	<button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delGame({$gameinfo["id"]})">删除</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<script type="text/javascript" src="__JS__/jquery-3.3.1.js"></script>
+<script src="__STATIC__/lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="__JS__/xadmin.js"></script>
+<script type="text/javascript">
+	let delGameUrl="{:url('delGame')}";   	//删除游戏活动url
+	let saveIdUrl="{:url('saveId')}"		//保存游戏id
+    let gameEditUrl="{:url('gameedit')}";   //游戏编辑url
+</script>
+<script type="text/javascript" src="__JS__/gameinfo.js"></script>
+</html>
